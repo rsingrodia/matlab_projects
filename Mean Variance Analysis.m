@@ -38,11 +38,11 @@ fmt = ' %6.2f ';
 texprint(Table_Characteristics, fmt, head, row);
 
 % ***********************************************************************
-% Part a) Run a time series regression of returns on predictors. Important:
+% Run a time series regression of returns on predictors. Important:
 % the predictor needs to be lagged one period
 % ***********************************************************************
 
-%% Question a - OLS Estimates 
+%% OLS Estimates 
 
 T= 6;
 summarytable=[];
@@ -64,7 +64,7 @@ for i = 1:T
     E = [E; temp];
 end
 
-%% Question B - MVEP without Short Sell
+%% MVEP without Short Sell
 
 % Using optimizers (very useful when you want to calculate optimal portfolios with constraints)
 
@@ -88,7 +88,7 @@ options = optimoptions('fmincon','OptimalityTolerance',1e-6,'StepTolerance',1e-6
     % Observation: 
     % Weights are not reasonable as you have negative weights, suggesting
     % that investors are short-selling their investments 
-%% Question C - MVEP With short sale constraints
+%% MVEP With short sale constraints
     [w_shortsell fvalSR1] = fmincon(fun,w0,[],[],[ones(1,N)],[1],zeros(N,1), ones(N,1),[],options)
 
     SRp = [fvalSR1./fvalSR0 fvalSR1 fvalSR0]'
@@ -96,7 +96,7 @@ options = optimoptions('fmincon','OptimalityTolerance',1e-6,'StepTolerance',1e-6
     % see an increase in SR from imposing a short sale constraint on the
     % optimization model 
 
-%% Question D - Redo A,B,C w/ more predictors 
+%% Redo A,B,C w/ more predictors 
 
 summarytable2=[];
 rsquares2=[];
@@ -134,7 +134,7 @@ options = optimoptions('fmincon','OptimalityTolerance',1e-6,'StepTolerance',1e-6
 % The MVEP mean return decreases as well as the standard errors 
 
 
-%% Question E - Create Minimum Variance Frontier 
+%% Create Minimum Variance Frontier 
 % Set Up 
 EM = mean(Ret)';
 A=EM'*inv(SIGMA)*EM;
